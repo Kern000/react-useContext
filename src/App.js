@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect, useMemo} from 'react';
+import StudentContext from './StudentContext';
+import StudentList from './StudentList';
 
-function App() {
+export default function App(){
+
+  const [formState, setFormState] = useState([])
+
+  useEffect(() => {
+    console.log('Form state updated:')
+  }, 
+  [formState])
+
+  const context = useMemo(()=>{
+    return(
+      {
+      getStudents: () => {
+        return formState
+      },
+      addStudent: (studentNumber, yearOfStudy, gender, graduated) => {
+        setFormState(
+          [...formState,
+           {
+            'studentNumber': studentNumber,
+            'yearOfStudy': yearOfStudy,
+            'gender': gender,
+            'graduated': graduated,
+           }
+          ]
+        )
+      },
+      formState
+      }
+    )
+  }, [formState]) //useMemo to prevent recalc, memorizing the result of computation, unless dependencies changed
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <StudentContext.Provider value={context}>
+      <StudentList />
+    </StudentContext.Provider>
+  )
 }
-
-export default App;

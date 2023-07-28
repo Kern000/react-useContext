@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import StudentContext from './StudentContext';
 import AddStudent from './AddStudent';
+import DeleteStudent from './deleteStudent';
 
 export default function StudentList(){
 
@@ -23,6 +24,7 @@ export default function StudentList(){
                 )}
             </ul>
             <AddStudent />
+            <DeleteStudent />
         </React.Fragment>
     )
 }

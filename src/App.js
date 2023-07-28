@@ -29,6 +29,15 @@ export default function App(){
           ]
         )
       },
+      deleteStudent: (studentNumberToDelete) => {
+        let clonedList = formState.slice()
+        let indexToDelete = clonedList.findIndex(s=> s.studentNumber === studentNumberToDelete)
+        let left = clonedList.slice(0, indexToDelete)
+        let right = clonedList.slice(indexToDelete+1)
+        setFormState(
+          [...left,...right]
+        )
+      },
       formState
       }
     )
